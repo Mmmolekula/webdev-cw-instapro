@@ -1,5 +1,7 @@
+console.log("Hello, Webpack!");
 import { getPosts, getUserPosts } from "./api.js";
 import { renderAddPostPageComponent } from "./components/add-post-page-component.js";
+import { renderUserPageComponent } from "./components/user-post-component.js";
 import { renderAuthPageComponent } from "./components/auth-page-component.js";
 import {
   ADD_POSTS_PAGE,
@@ -20,7 +22,7 @@ export let user = getUserFromLocalStorage();
 export let page = null;
 export let posts = [];
 
-const getToken = () => {
+export const getToken = () => {
   const token = user ? `Bearer ${user.token}` : null;
   return token;
 };
@@ -36,6 +38,7 @@ export const logout = () => {
  */
 export const goToPage = (newPage, data) => {
   console.log('goToPage called with:', newPage, data);
+
   if (
     [
       POSTS_PAGE,
@@ -72,24 +75,23 @@ export const goToPage = (newPage, data) => {
       // TODO: реализовать получение постов юзера из API
       return getUserPosts({id: data.userId})
       .then((newPosts) => {
-      console.log('getUserPosts resolved:', newPosts);
-      page = USER_POSTS_PAGE;
-      posts = newPosts;
-      renderApp();
-    })
-    .catch((error) => {
-      console.log(error);
-      console.error('Error fetching user posts:', error);
-      goToPage(POSTS_PAGE);
-    })
-  }
+        console.log('getUserPosts resolved:', newPosts);
+        page = USER_POSTS_PAGE;
+        posts = newPosts;
+        renderApp();
+      })
+      .catch((error) => {
+        console.log(error);
+        console.error('Error fetching user posts:', error);
+        goToPage(POSTS_PAGE);
+      })
+    }
 
     page = newPage;
     renderApp();
 
     return;
   }
-
   throw new Error("страницы не существует");
 };
 
@@ -122,9 +124,9 @@ const renderApp = () => {
       appEl,
       onAddPostClick: ({ description, imageUrl }) => {
         // TODO: реализовать добавление поста в API
-        console.log('Adding post with description:', description, 'and imageUrl:', imageUrl);
-        goToPage(POSTS_PAGE);
-      },
+          console.log('Adding post with description:', description, 'and imageUrl:', imageUrl);
+          goToPage(POSTS_PAGE);
+       },        
     });
   }
 
@@ -143,9 +145,9 @@ const renderApp = () => {
     })
   }
 };
-
-  export function setPosts(newPosts) {
-    posts = newPosts;
+   
+    export function setPosts(newPosts) {
+      posts = newPosts;
 }
 
-goToPage(POSTS_PAGE);
+  goToPage(POSTS_PAGE);

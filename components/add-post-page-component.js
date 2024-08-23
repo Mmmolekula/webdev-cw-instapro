@@ -47,7 +47,7 @@ export function renderAddPostPageComponent({ appEl }) {
     });
   };
 
- const addPostToAPI = (description, imageUrl) => {
+  const addPostToAPI = (description, imageUrl) => {
     addPost({ description, imageUrl, token: getToken() })
       .then(() => {
         goToPage(POSTS_PAGE);

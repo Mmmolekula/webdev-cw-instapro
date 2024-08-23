@@ -18,8 +18,7 @@ export function renderHeaderComponent({ element }) {
           ? `<button title="${sanitizeHTML(user.name)}" class="header-button logout-button">Выйти</button>`
           : ""
       }  
-  </div>
-  
+  </div>  
 `;
 
   element
