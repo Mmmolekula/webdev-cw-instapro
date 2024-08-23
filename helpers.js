@@ -1,3 +1,4 @@
+
 import { getLike, getDislike, getPostsWithToken } from './api.js';
 import { getToken, setPosts } from './index.js';
 import { updateLikeButton } from './components/posts-page-component.js';

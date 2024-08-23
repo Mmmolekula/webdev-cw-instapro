@@ -1,3 +1,4 @@
+
 console.log("Hello, Webpack!");
 import { getPosts, getUserPosts } from "./api.js";
 import { renderAddPostPageComponent } from "./components/add-post-page-component.js";

@@ -114,7 +114,6 @@ export function uploadImage({ file }) {
   });
 }
 
-
 export const getLike = (id, { token }) => {
   return fetch(`${postsHost}/${id}/like`, {
     method: "POST",
@@ -154,7 +153,6 @@ export const getDislike = (id, { token }) => {
       throw error;
     });
 };
-
 
 export function getPostsWithToken() {
   const token = getToken();
