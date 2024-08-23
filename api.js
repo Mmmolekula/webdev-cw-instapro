@@ -113,3 +113,65 @@ export function uploadImage({ file }) {
     return response.json();
   });
 }
+
+
+export const getLike = (id, { token }) => {
+  return fetch(`${postsHost}/${id}/like`, {
+    method: "POST",
+    headers: {
+      Authorization: token,
+    }
+  })
+  .then((response) => {
+    if (!response.ok) {
+      throw new Error(`Ошибка ${response.status}: ${response.statusText}`);
+    }
+    return response.json();
+  })
+    .catch((error) => {
+      alert('Вы не авторизованы!')
+      throw error;
+    });
+
+};
+
+export const getDislike = (id, { token }) => {
+  return fetch(`${postsHost}/${id}/dislike`, {
+    method: "POST",
+    headers: {
+      Authorization: token,
+    }
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error(`Ошибка ${response.status}: ${response.statusText}`);
+      }
+      return response.json();
+    })
+    .catch((error) => {
+      console.error("Ошибка при удалении лайка:", error);
+      alert('Что-то пошло не так, попробуйте позже.')
+      throw error;
+    });
+};
+
+
+export function getPostsWithToken() {
+  const token = getToken();
+  return fetch(postsHost, {
+    method: "GET",
+    headers: {
+      Authorization: token,
+    },
+  })
+    .then((response) => {
+      if (response.status === 401) {
+        throw new Error("Нет авторизации");
+      }
+
+      return response.json();
+    })
+    .then((data) => {
+      return data.posts;
+    });
+}
