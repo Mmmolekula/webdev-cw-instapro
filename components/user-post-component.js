@@ -17,7 +17,7 @@ export function renderUserPageComponent({ appEl, posts }) {
 
  const renderPost = (post) => {
   const likesCount = post.likes.length;
-  const createDate = format(new Date(), 'dd.MM.yy HH:mm:ss');
+  let createDate = format(new Date(post.createdAt), 'dd.MM.yy HH:mm:ss');
 
   let likesText = "Нравится:";
   if (likesCount === 0) {
