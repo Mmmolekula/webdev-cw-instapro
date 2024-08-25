@@ -2,9 +2,11 @@ import { USER_POSTS_PAGE } from "../routes.js";
 import { renderHeaderComponent } from "./header-component.js";
 import { goToPage } from "../index.js";
 import { sanitizeHTML, handleLike } from "../helpers.js";
+import { format } from "date-fns";
 
 export function renderPostsPageComponent({ appEl, posts }) {
-  const renderPost = (post) => {
+   const renderPost = (post) => {
+    const createDate = format(new Date(post.date), 'dd.MM.yy HH:mm:ss');
     const isLiked = post.isLiked ? 'true' : 'false';
     const likesCount = post.likes ? post.likes.length : 0;
   
@@ -16,7 +18,7 @@ export function renderPostsPageComponent({ appEl, posts }) {
     } else {
       likesText += ` ${sanitizeHTML(post.likes[0].name)} и еще ${likesCount - 1}`;
     }
-  
+
     const postHtml = `
       <li class="post">
         <div class="post-header" data-user-id="${post.user.id}">
@@ -39,14 +41,13 @@ export function renderPostsPageComponent({ appEl, posts }) {
           ${sanitizeHTML(post.description)}
         </p>
         <p class="post-date">
-          ${formatDate(post.createdAt)}
+        ${createDate}
         </p>
       </li>
     `;
     return postHtml;
   };
   
-  formatDate();
 
   const appHtml = `
     <div class="page-container">
@@ -107,9 +108,10 @@ export function initLikeButtonListener(appEl, handleLike) {
   });
 }
 
-export const formatDate = (dateString) => {
-  const date = new Date(dateString);
-  const now = new Date();
-  const diffInMs = now - date;
-  return `${Math.round(diffInMs / (1000 * 60))} минут назад`;
-};
+// export const formatDate = (dateString) => {
+//   const date = new Date(dateString);
+//   const now = new Date();
+//   const diffInMs = now - date;
+//   return `${Math.round(diffInMs / (1000 * 60))} минут назад`;
+// };
+

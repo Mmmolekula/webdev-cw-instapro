@@ -1,6 +1,8 @@
 import { renderHeaderComponent } from "./header-component.js";
-import { formatDate, initLikeButtonListener } from "./posts-page-component.js";
+import { initLikeButtonListener } from "./posts-page-component.js";
 import { handleLike, sanitizeHTML } from "../helpers.js";
+import { format } from "date-fns";
+
 
 
 export function renderUserPageComponent({ appEl, posts }) {
@@ -16,6 +18,7 @@ export function renderUserPageComponent({ appEl, posts }) {
 
  const renderPost = (post) => {
   const likesCount = post.likes.length;
+  const createDate = format(new Date(post.date), 'dd.MM.yy HH:mm:ss');
 
   let likesText = "Нравится:";
   if (likesCount === 0) {
@@ -37,7 +40,7 @@ export function renderUserPageComponent({ appEl, posts }) {
         ${sanitizeHTML(post.description)}
       </div>
       <p class="post-date">
-        ${formatDate(post.createdAt)}
+        ${createDate}
       </p>
       <div class="post-likes">
         <button data-post-id="${post.id}" data-liked="${post.isLiked ? 'true' : 'false'}" class="like-button">
@@ -52,8 +55,6 @@ export function renderUserPageComponent({ appEl, posts }) {
   return postHtml;
 };
 
-  formatDate();
-  
   const appHtml = `
     <div class="page-container">
       <div class="header-container"></div>

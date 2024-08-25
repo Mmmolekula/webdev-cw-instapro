@@ -1,5 +1,4 @@
 
-console.log("Hello, Webpack!");
 import { getPosts, getUserPosts } from "./api.js";
 import { renderAddPostPageComponent } from "./components/add-post-page-component.js";
 import { renderUserPageComponent } from "./components/user-post-component.js";
@@ -97,7 +96,6 @@ export const goToPage = (newPage, data) => {
 };
 
 const renderApp = () => {
-  console.log('renderApp called with page:', page);
   const appEl = document.getElementById("app");
   if (page === LOADING_PAGE) {
     return renderLoadingPageComponent({
