@@ -6,7 +6,7 @@ import { format } from "date-fns";
 
 export function renderPostsPageComponent({ appEl, posts }) {
    const renderPost = (post) => {
-    const createDate = format(new Date(post.date), 'dd.MM.yy HH:mm:ss');
+    const createDate = format(new Date(), 'dd.MM.yy HH:mm:ss');
     const isLiked = post.isLiked ? 'true' : 'false';
     const likesCount = post.likes ? post.likes.length : 0;
   

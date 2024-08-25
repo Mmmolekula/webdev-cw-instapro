@@ -4,7 +4,6 @@ import { handleLike, sanitizeHTML } from "../helpers.js";
 import { format } from "date-fns";
 
 
-
 export function renderUserPageComponent({ appEl, posts }) {
   const renderUserInfo = (user) => {
     const userInfoHtml = `
@@ -18,7 +17,7 @@ export function renderUserPageComponent({ appEl, posts }) {
 
  const renderPost = (post) => {
   const likesCount = post.likes.length;
-  const createDate = format(new Date(post.date), 'dd.MM.yy HH:mm:ss');
+  const createDate = format(new Date(), 'dd.MM.yy HH:mm:ss');
 
   let likesText = "Нравится:";
   if (likesCount === 0) {
