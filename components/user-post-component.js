@@ -8,7 +8,7 @@ export function renderUserPageComponent({ appEl, posts }) {
   const renderUserInfo = (user) => {
     const userInfoHtml = `
       <div class="user-info">
-        <img src="${user.imageUrl}" class="user-info__user-image">
+        <img src="${user.imageUrl}" class="post-header__user-image">
         <p class="user-info__user-name">${sanitizeHTML(user.name)}</p>
       </div>
     `;
