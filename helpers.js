@@ -1,7 +1,8 @@
 
 import { getLike, getDislike, getPostsWithToken } from './api.js';
-import { getToken, setPosts } from './index.js';
+import { getToken, page, renderApp, setPage, setPosts } from './index.js';
 import { updateLikeButton } from './components/posts-page-component.js';
+import { POSTS_PAGE } from './routes.js';
 
 export function saveUserToLocalStorage(user) {
   window.localStorage.setItem("user", JSON.stringify(user));
@@ -28,7 +29,6 @@ export const sanitizeHTML = (htmlString) => {
 };
 
 export function handleLike(postId, isLiked) {
-  
   const token = getToken();
   if (isLiked) {
     return getDislike(postId, { token })
@@ -40,6 +40,16 @@ export function handleLike(postId, isLiked) {
           likeButton.dataset.liked = 'false'; 
         }
         return post;
+      })
+      .then(() => {
+        return getPostsWithToken(); 
+      })
+      .then((newPosts) => {
+        console.log(newPosts);
+        setPosts(newPosts); 
+        updateLikeButton(postId, true);
+        setPage(POSTS_PAGE);
+        renderApp();
       })
       .catch((error) => {
         console.error('Ошибка при дизлайке:', error);
@@ -60,8 +70,11 @@ export function handleLike(postId, isLiked) {
         return getPostsWithToken(); 
       })
       .then((newPosts) => {
+        console.log(newPosts);
         setPosts(newPosts); 
         updateLikeButton(postId, true);
+        setPage(POSTS_PAGE);
+        renderApp();
       })
       .catch((error) => {
         console.error('Ошибка при лайке:', error);

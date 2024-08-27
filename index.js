@@ -21,7 +21,9 @@ import {
 export let user = getUserFromLocalStorage();
 export let page = null;
 export let posts = [];
-
+export const setPage = (newPage) => {
+  page = newPage;
+}
 export const getToken = () => {
   const token = user ? `Bearer ${user.token}` : null;
   return token;
@@ -91,7 +93,7 @@ export const goToPage = (newPage, data) => {
   throw new Error("страницы не существует");
 };
 
-const renderApp = () => {
+export const renderApp = () => {
   const appEl = document.getElementById("app");
   if (page === LOADING_PAGE) {
     return renderLoadingPageComponent({
