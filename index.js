@@ -37,7 +37,6 @@ export const logout = () => {
  * Включает страницу приложения
  */
 export const goToPage = (newPage, data) => {
-  console.log('goToPage called with:', newPage, data);
 
   if (
     [
@@ -60,7 +59,6 @@ export const goToPage = (newPage, data) => {
 
       return getPosts({ token: getToken() })
         .then((newPosts) => {
-          console.log('getPosts resolved:', newPosts);
           page = POSTS_PAGE;
           posts = newPosts;
           renderApp();
@@ -75,13 +73,11 @@ export const goToPage = (newPage, data) => {
       // TODO: реализовать получение постов юзера из API
       return getUserPosts({id: data.userId})
       .then((newPosts) => {
-        console.log('getUserPosts resolved:', newPosts);
         page = USER_POSTS_PAGE;
         posts = newPosts;
         renderApp();
       })
       .catch((error) => {
-        console.log(error);
         console.error('Error fetching user posts:', error);
         goToPage(POSTS_PAGE);
       })
@@ -123,7 +119,6 @@ const renderApp = () => {
       appEl,
       onAddPostClick: ({ description, imageUrl }) => {
         // TODO: реализовать добавление поста в API
-          console.log('Adding post with description:', description, 'and imageUrl:', imageUrl);
           goToPage(POSTS_PAGE);
        },        
     });

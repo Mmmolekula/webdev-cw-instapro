@@ -22,7 +22,6 @@ export function getPosts({ token }) {
       return response.json();
     })
     .then((data) => {
-      console.log('API response:', data);
       return data.posts;
     });
 }
