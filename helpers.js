@@ -2,7 +2,7 @@
 import { getLike, getDislike, getPostsWithToken } from './api.js';
 import { getToken, page, renderApp, setPage, setPosts } from './index.js';
 import { updateLikeButton } from './components/posts-page-component.js';
-import { POSTS_PAGE } from './routes.js';
+import { POSTS_PAGE, USER_POSTS_PAGE } from './routes.js';
 
 export function saveUserToLocalStorage(user) {
   window.localStorage.setItem("user", JSON.stringify(user));
@@ -44,11 +44,11 @@ export function handleLike(postId, isLiked) {
       .then(() => {
         return getPostsWithToken(); 
       })
-      .then((newPosts) => {
+      .then((newPosts, page) => {
         console.log(newPosts);
         setPosts(newPosts); 
         updateLikeButton(postId, true);
-        setPage(POSTS_PAGE);
+        setPage(POSTS_PAGE || USER_POSTS_PAGE);
         renderApp();
       })
       .catch((error) => {
@@ -69,11 +69,11 @@ export function handleLike(postId, isLiked) {
       .then(() => {
         return getPostsWithToken(); 
       })
-      .then((newPosts) => {
+      .then((newPosts, page) => {
         console.log(newPosts);
         setPosts(newPosts); 
         updateLikeButton(postId, true);
-        setPage(POSTS_PAGE);
+        setPage(POSTS_PAGE || USER_POSTS_PAGE);
         renderApp();
       })
       .catch((error) => {
