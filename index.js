@@ -21,6 +21,7 @@ import {
 export let user = getUserFromLocalStorage();
 export let page = null;
 export let posts = [];
+
 export const setPage = (newPage) => {
   page = newPage;
 }
@@ -119,10 +120,17 @@ export const renderApp = () => {
   if (page === ADD_POSTS_PAGE) {
     return renderAddPostPageComponent({
       appEl,
-      onAddPostClick: ({ description, imageUrl }) => {
-        // TODO: реализовать добавление поста в API
+      onAddPostClick: async ({ description, imageUrl }) => {
+        try {
+          await addPost({ description, imageUrl });
+          const newPosts = await getPosts({ token: getToken() });
+          setPosts(newPosts);
           goToPage(POSTS_PAGE);
-       },        
+        } catch (error) {
+          console.error('Ошибка при добавлении поста:', error);
+          alert('Не удалось добавить пост. Попробуйте ещё раз.');
+        }
+      },
     });
   }
 
@@ -134,16 +142,15 @@ export const renderApp = () => {
   }
 
   if (page === USER_POSTS_PAGE) {
-    //передать id пользователя или передать параметром режим просмотра (true, false)
     return renderUserPageComponent({
       appEl,
       posts
-    })
+    });
   }
 };
-   
-    export function setPosts(newPosts) {
-      posts = newPosts;
+
+export function setPosts(newPosts) {
+  posts = newPosts;
 }
 
-  goToPage(POSTS_PAGE);
+goToPage(POSTS_PAGE);
